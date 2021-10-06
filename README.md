@@ -2,7 +2,7 @@
 An interesting game created using `python` and `pygame`
 
 ```
-We are taking part in Coolest Project Malaysia 2021 and here is our ROB IT project!
+We are taking part in Coolest Project Malaysia 2021 and here is our project!
 ```
 ![screenshot](https://github.com/917JingXuan/ROB_IT/blob/main/Assets/menu.jpg)
 
@@ -21,7 +21,13 @@ We are taking part in Coolest Project Malaysia 2021 and here is our ROB IT proje
 * pygame
 
 ## Module Installation
-`pygame` can be installed via pip. Simply run:
+**pygame**
 ```
 pip install pygame
+```
+
+## Game Installation 
+```
+1. Download or [Git Clone](https://github.com/917JingXuan/ROB_IT.git) this repository into a local folder
+2. run main.py
 ```
