@@ -21,7 +21,7 @@ We are taking part in Coolest Project Malaysia 2021 and here is our project!
 * pygame
 
 ## Module Installation
-**pygame**
+1. **pygame**
 ```
 pip install pygame
 ```
