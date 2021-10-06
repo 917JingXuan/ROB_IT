@@ -1,6 +1,6 @@
 ## ROB IT 
 
-We are taking part in Coolest Project Malaysia 2021 and here is our project!
+We are taking part in **Coolest Project Malaysia** 2021 and here is our project!
 
 ![screenshot](https://github.com/917JingXuan/ROB_IT/blob/main/Assets/menu.jpg)
 
