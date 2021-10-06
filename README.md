@@ -27,5 +27,5 @@ pip install pygame
 ```
 
 ## Game Installation 
-1. Download or [Git Clone](https://github.com/917JingXuan/ROB_IT.git) this repository into a local folder
+1. Download or Git Clone(https://github.com/917JingXuan/ROB_IT.git) this repository into a local folder
 2. run `main.py`
