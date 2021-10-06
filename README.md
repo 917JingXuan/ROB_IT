@@ -20,4 +20,3 @@ We are taking part in Coolest Project Malaysia 2021 and here is our ROB IT proje
 | Move Down    | <kbd>s</kbd>        |
 | Move Right   | <kbd>d</kbd>        |
 | Speed Up     | <kbd>spacebar</kbd> |
-| Quit game    | <kbd>Esc</kbd>      |
