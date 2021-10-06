@@ -18,7 +18,7 @@ We are taking part in Coolest Project Malaysia 2021 and here is our project!
     ```
 3. Git Clone this repository
     ```bash
-    $ git clone https://github.com/917JingXuan/ROB_IT.git
+    https://github.com/917JingXuan/ROB_IT.git
     ```
     or download as zip and extract
 4. run `main.py` in your **python IDLE**
