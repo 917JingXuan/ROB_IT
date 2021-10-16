@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.5" tiledversion="1.7.2" name="Character" tilewidth="16" tileheight="24" tilecount="140" columns="20">
- <image source="Character/SMS RPG Vigilante Sprite Files FREE/Character_tileset.png" width="320" height="168"/>
+ <image source="Character_tileset.png" width="320" height="168"/>
  <tile id="48">
   <animation>
    <frame tileid="48" duration="150"/>
