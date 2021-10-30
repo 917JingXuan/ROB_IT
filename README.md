@@ -1,6 +1,8 @@
 ## ROB IT 
 
 We are taking part in **Coolest Project Malaysia 2021** and here is our project!
+![screenshot](https://github.com/917JingXuan/ROB_IT/blob/main/Pictures/menu_dark.png)
+
 
 
 ## Requirements
@@ -22,12 +24,11 @@ We are taking part in **Coolest Project Malaysia 2021** and here is our project!
 
 ## Controls: 
 
-|              | Button              |
+| Actions      | Button              |
 |--------------|---------------------|
-| Move Up      | <kbd>W</kbd>        |
+| Jump         | <kbd>W</kbd>        |
 | Move Left    | <kbd>A</kbd>        |
-| Move Down    | <kbd>S</kbd>        |
 | Move Right   | <kbd>D</kbd>        |
-| Speed Up     | <kbd>spacebar</kbd> |
+
 
 [[Back to top]](https://github.com/917JingXuan/ROB_IT#rob-it)
