@@ -31,6 +31,11 @@ moving_right = False
 shoot = False
 RED = (255, 0, 0)
 
+#load music and sounds
+pygame.mixer.music.load('song.mp3')
+pygame.mixer.music.set_volume(0.3)
+pygame.mixer.music.play(-1, 0.0, 5000)
+
 # images
 start_img = pygame.image.load('Pictures/start_button_dark.png').convert_alpha()
 restart_img = pygame.image.load('Pictures/restart_button_dark.png').convert_alpha()
@@ -293,9 +298,9 @@ class World():
                         trap = Trap(img, x * TILE_SIZE, y * TILE_SIZE)
                         trap_group.add(trap)
                     elif tile == 30:#player
-                        player = Player('player', x * TILE_SIZE, y * TILE_SIZE, 3, 5)
+                        player = Player('player', x * TILE_SIZE, y * TILE_SIZE, 1.6, 5)
                     elif tile == 31:#enemy
-                        enemy = Player('enemy', x * TILE_SIZE, y * TILE_SIZE, 3, 5)
+                        enemy = Player('enemy', x * TILE_SIZE, y * TILE_SIZE, 1.6, 5)
                         enemy_group.add(enemy)
                     elif tile == 32:#coins
                         item_box = Coin('Coins', x * TILE_SIZE, y * TILE_SIZE)
