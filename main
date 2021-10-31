@@ -289,9 +289,9 @@ class World():
                     img_rect.x = x * TILE_SIZE
                     img_rect.y = y * TILE_SIZE
                     tile_data = (img, img_rect)
-                    if tile >= 0 and tile <= 9:#floor
+                    if tile >= 1 and tile <= 5:#floor
                         self.obstacle_list.append(tile_data)
-                    elif tile >= 10 and tile <= 28:#fence and house
+                    elif tile == 0 or tile >= 6 and tile <= 28:#fence and house
                         decoration = Decoration(img, x * TILE_SIZE, y * TILE_SIZE)
                         decoration_group.add(decoration)
                     elif tile == 29:#trap
@@ -427,8 +427,8 @@ class Button():
 
         return action
 
-start_button = Button(SCREEN_WIDTH // 2 - 130, SCREEN_HEIGHT // 2 - 45, start_img, 1)
-restart_button = Button(SCREEN_WIDTH // 2 - 130, SCREEN_HEIGHT // 2 - -45, restart_img, 1)
+start_button = Button(SCREEN_WIDTH // 2 - 158, SCREEN_HEIGHT // 2 - 49, start_img, 1)
+restart_button = Button(SCREEN_WIDTH // 2 - 158, SCREEN_HEIGHT // 2 - -49, restart_img, 1)
 
 
 bullet_group = pygame.sprite.Group()
