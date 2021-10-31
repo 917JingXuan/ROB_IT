@@ -58,7 +58,7 @@ item_boxes = {
     'Coins': coin_image
 }
 
-font = pygame.font.SysFont('Arial', 30)
+font = pygame.font.Font('INVASION2000.TTF', 30)
 
 def draw_text(text, font, text_col, x, y):
     img = font.render(text, True, text_col)
@@ -470,7 +470,7 @@ while run:
         # draw world map
         world.draw()
 
-        draw_text(f'Coins: {player.coins} / 10', font, 'white', 10, 35)
+        draw_text(f'Coins: {player.coins} / 10', font, 'black', 10, 35)
 
 
 
