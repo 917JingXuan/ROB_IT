@@ -39,16 +39,16 @@ shoot = False
 RED = (255, 0, 0)
 
 #load music and sounds
-pygame.mixer.music.load('song.mp3')
+pygame.mixer.music.load('Assets/song.mp3')
 pygame.mixer.music.set_volume(sound)
 pygame.mixer.music.play(-1, 0.0, 5000)
-jump_fx = pygame.mixer.Sound('jump.wav')
+jump_fx = pygame.mixer.Sound('Assets/jump.wav')
 jump_fx.set_volume(sound_fx)
-coin_fx = pygame.mixer.Sound('coin.wav')
+coin_fx = pygame.mixer.Sound('Assets/coin.wav')
 coin_fx.set_volume(sound_fx)
-bullet_fx = pygame.mixer.Sound('bullet.mp3')
+bullet_fx = pygame.mixer.Sound('Assets/bullet.mp3')
 bullet_fx.set_volume(sound_fx)
-lose_fx = pygame.mixer.Sound('lose.mp3')
+lose_fx = pygame.mixer.Sound('Assets/lose.mp3')
 lose_fx.set_volume(sound)
 
 
@@ -84,7 +84,7 @@ item_boxes = {
 
 # define font
 
-font = pygame.font.Font('INVASION2000.TTF', 40)
+font = pygame.font.Font('Assets/INVASION2000.TTF', 40)
 Font = pygame.font.SysFont('Futura', 60)
 
 def draw_text(text, font, text_col, x, y):
