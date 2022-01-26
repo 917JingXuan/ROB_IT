@@ -1,17 +1,32 @@
 import os, random, csv, pygame
 from pygame import mixer
+import json
 
 pygame.init()
 mixer.init()
 
+#define screen size
 SCREEN_WIDTH = 1550
 SCREEN_HEIGHT = 800
 
+#draw screen
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('Rob It')
 clock = pygame.time.Clock()
 
-#value
+data = {
+    'level': int(1),
+    'sound': float(0.1),
+    'sound_fx': float(0.1)
+}
+try:
+    with open('game_data.txt') as data_file:
+        data = json.load(data_file)
+except:
+    print("Json file was not found")
+
+
+#define variables
 FPS = 60
 GRAVITY = 0.78
 screen_scroll = 0
@@ -24,13 +39,9 @@ COLS = 150
 TILE_SIZE = SCREEN_HEIGHT // ROWS
 TILE_TYPES = 50
 MAX_LEVELS = 4
-level = 1
 volume = 0.1
-sound = 0.2
-text_volume = 2
-volume_fx = 0.1
-sound_fx = 0.3
-text_volume_fx = 3
+text_sound = round(data["sound"] * 10)
+text_sound_fx = round(data["sound"] * 10)
 
 
 moving_left = False
@@ -40,23 +51,23 @@ RED = (255, 0, 0)
 
 #load music and sounds
 pygame.mixer.music.load('Assets/song.mp3')
-pygame.mixer.music.set_volume(sound)
+pygame.mixer.music.set_volume(data["sound"])
 pygame.mixer.music.play(-1, 0.0, 5000)
 jump_fx = pygame.mixer.Sound('Assets/jump.wav')
-jump_fx.set_volume(sound_fx)
+jump_fx.set_volume(data["sound_fx"])
 coin_fx = pygame.mixer.Sound('Assets/coin.wav')
-coin_fx.set_volume(sound_fx)
+coin_fx.set_volume(data["sound_fx"])
 bullet_fx = pygame.mixer.Sound('Assets/bullet.mp3')
-bullet_fx.set_volume(sound_fx)
+bullet_fx.set_volume(data["sound_fx"])
 lose_fx = pygame.mixer.Sound('Assets/lose.mp3')
-lose_fx.set_volume(sound)
+lose_fx.set_volume(data["sound"])
 
 
 # images
 start_img = pygame.image.load('Pictures/start_button_dark.png').convert_alpha()
-restart_img = pygame.image.load('Pictures/restart_button_dark.png').convert_alpha()
+restart_img = pygame.image.load('Pictures/restart_button.png').convert_alpha()
 bg_img = pygame.image.load('Pictures/Background.png').convert_alpha()
-menu_img = pygame.image.load('Pictures/menu_dark.png').convert_alpha()
+menu_img = pygame.image.load('Pictures/menu_light.png').convert_alpha()
 win_img = pygame.image.load('Pictures/youwon_dark_menu.png').convert_alpha()
 lose_img = pygame.image.load('Pictures/youlose_dark_menu.png').convert_alpha()
 exit_img = pygame.image.load('Pictures/exit_button.png').convert_alpha()
@@ -511,10 +522,10 @@ class Coin(pygame.sprite.Sprite):
 
             self.kill()
 
-start_button = Button(SCREEN_WIDTH // 2 - 158, SCREEN_HEIGHT // 2 - 49, start_img, 1)
-restart_button = Button(SCREEN_WIDTH // 2 - 158, SCREEN_HEIGHT // 2 - -49, restart_img, 1)
-exit_button = Button(SCREEN_WIDTH // 2 - 158, SCREEN_HEIGHT // 2 - -49, exit_img, 1)
-option_button = Button(SCREEN_WIDTH - 350, 10,option_img, 1)
+start_button = Button(SCREEN_WIDTH // 2 - 158, SCREEN_HEIGHT // 2 - 60, start_img, 1)
+restart_button = Button(SCREEN_WIDTH // 2 - 158, SCREEN_HEIGHT // 2 - -15, restart_img, 1)
+exit_button = Button(SCREEN_WIDTH // 2 - 158, SCREEN_HEIGHT // 2 - -90, exit_img, 1)
+option_button = Button(SCREEN_WIDTH // 2 - 158, SCREEN_HEIGHT // 2 - -15, option_img, 1)
 menu_button = Button(SCREEN_WIDTH // 2 - 550, SCREEN_HEIGHT // 2 - -250, menu_bttn_img, 1)
 menu_button2 = Button(SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 - 15, menu_bttn2_img, 1)
 right_button = Button(SCREEN_WIDTH // 2 + 160, SCREEN_HEIGHT // 2 - 55, right_img, 1)
@@ -536,7 +547,7 @@ for row in range(ROWS):
     r = [-1] * COLS
     world_data.append(r)
 # load in level data and create world
-with open(f'level{level}.csv', newline='')as csvfile:
+with open(f'level{data["level"]}.csv', newline='')as csvfile:
     reader = csv.reader(csvfile, delimiter=',')
     for x, row in enumerate(reader):
         for y, tile in enumerate(row):
@@ -546,6 +557,8 @@ player = world.process_data(world_data)
 
 run = True
 while run:
+    with open('game_data.txt', 'w') as data_file:
+        json.dump(data, data_file)
 
     clock.tick(FPS)
     if start_game == False:
@@ -562,38 +575,38 @@ while run:
             screen.blit(option_menu_img, (0, 0))
             if menu_button.draw(screen):
                 info_game = False
-            if right_button.draw(screen) and text_volume < 10:
-                text_volume += 1
-                sound += volume
-                pygame.mixer.music.set_volume(sound)
-                lose_fx.set_volume(sound)
-            if left_button.draw(screen) and text_volume > 0:
-                text_volume -= 1
-                sound -= volume
-                pygame.mixer.music.set_volume(sound)
-                lose_fx.set_volume(sound)
-            if right_button2.draw(screen) and text_volume_fx < 10:
-                text_volume_fx += 1
-                sound_fx += volume_fx
-                coin_fx.set_volume(sound_fx)
-                jump_fx.set_volume(sound_fx)
-                bullet_fx.set_volume(sound_fx)
-            if left_button2.draw(screen) and text_volume_fx > 0:
-                text_volume_fx -= 1
-                sound_fx -= volume_fx
-                coin_fx.set_volume(sound_fx)
-                jump_fx.set_volume(sound_fx)
-                bullet_fx.set_volume(sound_fx)
-            if text_volume == 10:
-                draw_text(f'{text_volume}', font, 'white', SCREEN_WIDTH // 2 + 70, SCREEN_HEIGHT // 2 - 35)
+            if right_button.draw(screen) and text_sound < 10:
+                text_sound += 1
+                data["sound"] += volume
+                pygame.mixer.music.set_volume(data["sound"])
+                lose_fx.set_volume(data["sound"])
+            if left_button.draw(screen) and text_sound > 0:
+                text_sound -= 1
+                data["sound"] -= volume
+                pygame.mixer.music.set_volume(data["sound"])
+                lose_fx.set_volume(data["sound"])
+            if right_button2.draw(screen) and text_sound_fx < 10:
+                text_sound_fx += 1
+                data["sound_fx"] += volume
+                coin_fx.set_volume(data["sound_fx"])
+                jump_fx.set_volume(data["sound_fx"])
+                bullet_fx.set_volume(data["sound_fx"])
+            if left_button2.draw(screen) and text_sound_fx > 0:
+                text_sound_fx -= 1
+                data["sound_fx"] -= volume
+                coin_fx.set_volume(data["sound_fx"])
+                jump_fx.set_volume(data["sound_fx"])
+                bullet_fx.set_volume(data["sound_fx"])
+            if text_sound == 10:
+                draw_text(f'{text_sound}', font, 'white', SCREEN_WIDTH // 2 + 70, SCREEN_HEIGHT // 2 - 35)
 
             else:
-                draw_text(f'{text_volume}', font, 'white', SCREEN_WIDTH // 2 + 80, SCREEN_HEIGHT // 2 - 35)
-            if text_volume_fx == 10:
-                draw_text(f'{text_volume_fx}', font, 'white', SCREEN_WIDTH // 2 + 70, SCREEN_HEIGHT // 2 + 125)
+                draw_text(f'{text_sound}', font, 'white', SCREEN_WIDTH // 2 + 80, SCREEN_HEIGHT // 2 - 35)
+            if text_sound_fx == 10:
+                draw_text(f'{text_sound_fx}', font, 'white', SCREEN_WIDTH // 2 + 70, SCREEN_HEIGHT // 2 + 125)
 
             else:
-                draw_text(f'{text_volume_fx}', font, 'white', SCREEN_WIDTH // 2 + 80, SCREEN_HEIGHT // 2 + 125)
+                draw_text(f'{text_sound_fx}', font, 'white', SCREEN_WIDTH // 2 + 80, SCREEN_HEIGHT // 2 + 125)
 
 
 
@@ -606,10 +619,6 @@ while run:
         world.draw()
 
         draw_text(f'Coins: {player.coins} / 10', font, 'black', 10, 35)
-
-
-
-
         exit_group.update()
         exit_group.draw(screen)
         trap_group.update()
@@ -644,20 +653,20 @@ while run:
             bg_scroll -= screen_scroll
             #levelz_complete
             if level_complete and player.coins == 10:
-                if level >= MAX_LEVELS:
+                if data['level'] >= MAX_LEVELS:
                     screen.blit(win_img, (0,0))
                     player.vel_y = 0
                     player.speed = 0
                     if menu_button2.draw(screen):
                         start_game = False
-                        level = 0
+                        data['level'] = 0
 
 
                 else:
-                    level += 1
+                    data['level'] += 1
                     bg_scroll = 0
                     world_data = reset()
-                    with open(f'level{level}.csv', newline='') as csvfile:
+                    with open(f'level{data["level"]}.csv', newline='') as csvfile:
                         reader = csv.reader(csvfile, delimiter=',')
                         for x, row in enumerate(reader):
                             for y, tile in enumerate(row):
@@ -673,7 +682,7 @@ while run:
                 if restart_button.draw(screen):
                     bg_scroll = 0
                     world_data = reset()
-                    with open(f'level{level}.csv', newline='') as csvfile:
+                    with open(f'level{data["level"]}.csv', newline='') as csvfile:
                         reader = csv.reader(csvfile, delimiter=',')
                         for x, row in enumerate(reader):
                             for y, tile in enumerate(row):
@@ -689,14 +698,14 @@ while run:
             if restart_button.draw(screen):
                 bg_scroll = 0
                 world_data = reset()
-                with open(f'level{level}.csv', newline='') as csvfile:
+                with open(f'level{data["level"]}.csv', newline='') as csvfile:
                     reader = csv.reader(csvfile, delimiter=',')
                     for x, row in enumerate(reader):
                         for y, tile in enumerate(row):
                             world_data[x][y] = int(tile)
                 world = World()
                 player = world.process_data(world_data)
-                pygame.mixer.music.set_volume(sound)
+                pygame.mixer.music.set_volume(data["sound"])
 
 
     for event in pygame.event.get():
