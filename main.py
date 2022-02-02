@@ -61,7 +61,8 @@ bullet_fx = pygame.mixer.Sound('Assets/bullet.mp3')
 bullet_fx.set_volume(data["sound_fx"])
 lose_fx = pygame.mixer.Sound('Assets/lose.mp3')
 lose_fx.set_volume(data["sound"])
-
+interface = pygame.mixer.Sound('Assets/interface_sound.mp3')
+interface.set_volume(data["sound_fx"])
 
 # images
 start_img = pygame.image.load('Pictures/start_button_dark.png').convert_alpha()
@@ -73,8 +74,8 @@ lose_img = pygame.image.load('Pictures/youlose_dark_menu.png').convert_alpha()
 exit_img = pygame.image.load('Pictures/exit_button.png').convert_alpha()
 option_img = pygame.image.load('Pictures/options_button.png').convert_alpha()
 option_menu_img = pygame.image.load('Pictures/option_menu.png').convert_alpha()
-menu_bttn_img = pygame.image.load('Pictures/menu_button.png').convert_alpha()
 menu_bttn2_img = pygame.image.load('Pictures/menu_button.png').convert_alpha()
+menu_bttn_img = pygame.transform.scale(pygame.image.load('Pictures/close_button.png'), (100, 100))
 left_img = pygame.image.load('Pictures/left_volume.png').convert_alpha()
 right_img = pygame.image.load('Pictures/right_volume.png').convert_alpha()
 left2_img = pygame.image.load('Pictures/left_volume.png').convert_alpha()
@@ -526,8 +527,8 @@ start_button = Button(SCREEN_WIDTH // 2 - 158, SCREEN_HEIGHT // 2 - 60, start_im
 restart_button = Button(SCREEN_WIDTH // 2 - 158, SCREEN_HEIGHT // 2 - -15, restart_img, 1)
 exit_button = Button(SCREEN_WIDTH // 2 - 158, SCREEN_HEIGHT // 2 - -90, exit_img, 1)
 option_button = Button(SCREEN_WIDTH // 2 - 158, SCREEN_HEIGHT // 2 - -15, option_img, 1)
-menu_button = Button(SCREEN_WIDTH // 2 - 550, SCREEN_HEIGHT // 2 - -250, menu_bttn_img, 1)
-menu_button2 = Button(SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 - 15, menu_bttn2_img, 1)
+menu_button = Button(SCREEN_WIDTH // 2 + 450, SCREEN_HEIGHT // 2 - 300, menu_bttn_img, 1)
+menu_button2 = Button(SCREEN_WIDTH // 2 - 158, SCREEN_HEIGHT // 2 - 15, menu_bttn2_img, 1)
 right_button = Button(SCREEN_WIDTH // 2 + 160, SCREEN_HEIGHT // 2 - 55, right_img, 1)
 left_button = Button(SCREEN_WIDTH // 2 - 70, SCREEN_HEIGHT // 2 - 55, left_img, 1)
 right_button2 = Button(SCREEN_WIDTH // 2 + 160, SCREEN_HEIGHT // 2 + 100, right2_img, 1)
@@ -567,13 +568,17 @@ while run:
             screen.blit(menu_img, (0, 0))
             if start_button.draw(screen):
                 start_game = True
+                interface.play()
             if exit_button.draw(screen):
+                interface.play()
                 run = False
             if option_button.draw(screen):
+                interface.play()
                 info_game = True
         else:
             screen.blit(option_menu_img, (0, 0))
             if menu_button.draw(screen):
+                interface.play()
                 info_game = False
             if right_button.draw(screen) and text_sound < 10:
                 text_sound += 1
@@ -591,12 +596,14 @@ while run:
                 coin_fx.set_volume(data["sound_fx"])
                 jump_fx.set_volume(data["sound_fx"])
                 bullet_fx.set_volume(data["sound_fx"])
+                interface.set_volume(data["sound_fx"])
             if left_button2.draw(screen) and text_sound_fx > 0:
                 text_sound_fx -= 1
                 data["sound_fx"] -= volume
                 coin_fx.set_volume(data["sound_fx"])
                 jump_fx.set_volume(data["sound_fx"])
                 bullet_fx.set_volume(data["sound_fx"])
+                interface.set_volume(data["sound_fx"])
             if text_sound == 10:
                 draw_text(f'{text_sound}', font, 'white', SCREEN_WIDTH // 2 + 70, SCREEN_HEIGHT // 2 - 35)
 
@@ -659,7 +666,7 @@ while run:
                     player.speed = 0
                     if menu_button2.draw(screen):
                         start_game = False
-                        data['level'] = 0
+                        data['level'] = 1
 
 
                 else:
@@ -682,6 +689,7 @@ while run:
                 if restart_button.draw(screen):
                     bg_scroll = 0
                     world_data = reset()
+                    interface.play()
                     with open(f'level{data["level"]}.csv', newline='') as csvfile:
                         reader = csv.reader(csvfile, delimiter=',')
                         for x, row in enumerate(reader):
